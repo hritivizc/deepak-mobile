@@ -556,7 +556,7 @@
 
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyL64y8IVPJPHsesXQpUgASI2_UCQmOIhzYoTWqL5D2N63MPOoEjMEoGPfpGVSRXcWf/exec";
-    const DEEPAK_MOBILE_PHONE = "918875086321";
+    const DEEPAK_MOBILE_COMMUNITY_URL = "https://chat.whatsapp.com/BYXBXKKK4Xa0ZJAjZpLUZo";
     let googleDone = false;
     let instagramDone = false;
 
@@ -622,19 +622,8 @@
 
       document.getElementById("displayName").textContent = name;
       document.getElementById("displayPhone").textContent = phone;
-      document.getElementById("communityLink").href = buildCommunityLink(name, phone);
+      document.getElementById("communityLink").href = DEEPAK_MOBILE_COMMUNITY_URL;
       showScreen(3);
-    }
-
-    function buildCommunityLink(name, phone) {
-      const message = [
-        "Hello Deepak Mobile, I want to join your customer community.",
-        "",
-        `Name: ${name}`,
-        `Mobile: ${phone}`
-      ].join("\n");
-
-      return `https://wa.me/${DEEPAK_MOBILE_PHONE}?text=${encodeURIComponent(message)}`;
     }
   </script>
 </body>
