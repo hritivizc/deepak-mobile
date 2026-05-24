@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deepak Mobile | Customer Connect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #071827;
+      --blue: #0b5cff;
+      --cyan: #00d4ff;
+      --green: #25d366;
+      --silver: #d9e7f2;
+      --white: #f8fbff;
+      --muted: rgba(248, 251, 255, 0.72);
+      --line: rgba(217, 231, 242, 0.22);
+      --glass: rgba(255, 255, 255, 0.075);
+      --shadow: rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Inter", system-ui, sans-serif;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(0, 212, 255, 0.25), transparent 23rem),
+        radial-gradient(circle at 92% 14%, rgba(11, 92, 255, 0.24), transparent 20rem),
+        linear-gradient(145deg, #09243a, var(--navy) 72%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(217, 231, 242, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(217, 231, 242, 0.035) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: linear-gradient(to bottom, #000, transparent 85%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      position: relative;
+      width: min(100%, 430px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 22px 16px 38px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .logo {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 13px;
+      border: 1px solid rgba(0, 212, 255, 0.65);
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.035)),
+        linear-gradient(145deg, #0b5cff, #06233b);
+      box-shadow: 0 22px 50px var(--shadow), inset 0 0 24px rgba(0, 212, 255, 0.18);
+      color: var(--white);
+    }
+
+    .logo svg {
+      width: 38px;
+      height: 38px;
+    }
+
+    h1 {
+      color: var(--white);
+      font-family: "Rajdhani", sans-serif;
+      font-size: 42px;
+      line-height: 0.95;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+    }
+
+    .tagline {
+      margin-top: 8px;
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .headline {
+      width: 100%;
+      max-width: 360px;
+      margin: 13px auto 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 11px 6px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.45;
+      text-transform: uppercase;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 0 0 16px;
+    }
+
+    .step {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(217, 231, 242, 0.32);
+      transition: width 0.2s ease, background 0.2s ease;
+    }
+
+    .step.active {
+      width: 28px;
+      background: var(--cyan);
+    }
+
+    .step.done {
+      background: var(--green);
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--glass);
+      box-shadow: 0 22px 52px rgba(0, 0, 0, 0.19);
+      backdrop-filter: blur(18px);
+      padding: 19px 17px;
+    }
+
+    .store-chip {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      border-left: 3px solid var(--cyan);
+      padding-left: 12px;
+      margin-bottom: 16px;
+    }
+
+    .store-chip strong {
+      display: block;
+      color: var(--white);
+      font-family: "Rajdhani", sans-serif;
+      font-size: 24px;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .store-chip span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .card-title {
+      color: var(--cyan);
+      font-family: "Rajdhani", sans-serif;
+      font-size: 22px;
+      line-height: 1.15;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .card-sub {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      min-height: 47px;
+      border: 1px solid rgba(217, 231, 242, 0.36);
+      border-radius: 10px;
+      background: rgba(4, 14, 24, 0.62);
+      color: var(--white);
+      font: inherit;
+      font-size: 14px;
+      outline: none;
+      padding: 12px 13px;
+    }
+
+    input::placeholder {
+      color: rgba(248, 251, 255, 0.45);
+    }
+
+    input:focus {
+      border-color: var(--cyan);
+      background: rgba(4, 14, 24, 0.78);
+    }
+
+    .btn {
+      width: 100%;
+      min-height: 50px;
+      border-radius: 10px;
+      border: 1px solid rgba(217, 231, 242, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 13px;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.07);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.16s ease, opacity 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--cyan);
+      background: rgba(0, 212, 255, 0.1);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      color: #03101b;
+    }
+
+    .btn-google {
+      background: rgba(255, 255, 255, 0.95);
+      color: #081522;
+      margin-bottom: 10px;
+    }
+
+    .btn-insta {
+      border-color: transparent;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #bc1888);
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .btn-whatsapp {
+      border-color: transparent;
+      background: var(--green);
+      color: #062412;
+      margin-top: 14px;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 45px;
+      border: 1px solid rgba(217, 231, 242, 0.35);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 9px;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.055);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    .check-row.checked {
+      border-color: rgba(37, 211, 102, 0.86);
+      background: rgba(37, 211, 102, 0.12);
+    }
+
+    .check-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      color: #081522;
+      background: rgba(217, 231, 242, 0.72);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .check-row.checked .check-icon {
+      background: var(--green);
+      color: #062412;
+    }
+
+    .guest-badge {
+      border: 1px solid rgba(217, 231, 242, 0.35);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .guest-badge strong {
+      color: var(--white);
+    }
+
+    .community-box {
+      border-radius: 12px;
+      border: 1px dashed rgba(0, 212, 255, 0.62);
+      background: linear-gradient(180deg, rgba(0, 212, 255, 0.16), rgba(255, 255, 255, 0.06));
+      padding: 17px 14px;
+      text-align: center;
+    }
+
+    .community-label {
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+
+    .community-title {
+      color: var(--white);
+      font-family: "Rajdhani", sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .community-copy {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+      margin-top: 8px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .service {
+      border: 1px solid rgba(217, 231, 242, 0.22);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.055);
+      padding: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .footer {
+      margin-top: 16px;
+      text-align: center;
+      color: rgba(248, 251, 255, 0.58);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .icon {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .screen {
+      animation: fadeUp 0.3s ease;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 360px) {
+      .page {
+        padding-inline: 12px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .services {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="brand">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+          <rect x="7" y="2.5" width="10" height="19" rx="2.2" />
+          <path d="M10 18.2h4" />
+          <path d="M9.6 5.5h4.8" />
+        </svg>
+      </div>
+      <h1>Deepak Mobile</h1>
+      <p class="tagline">Sales · Service · Accessories</p>
+      <p class="headline">Smartphones, mobile repair, accessories and customer support</p>
+    </header>
+
+    <div class="steps" aria-label="Progress">
+      <span class="step active" id="dot1"></span>
+      <span class="step" id="dot2"></span>
+      <span class="step" id="dot3"></span>
+    </div>
+
+    <section id="screen1" class="screen">
+      <div class="card">
+        <div class="store-chip">
+          <div>
+            <strong>Deepak Mobile</strong>
+            <span>Mobile store and service point</span>
+          </div>
+        </div>
+
+        <h2 class="card-title">Your Details</h2>
+        <p class="card-sub">Please enter your name and mobile number to continue.</p>
+
+        <div class="field">
+          <label for="clientName">Name</label>
+          <input id="clientName" type="text" placeholder="Your name" autocomplete="name" />
+        </div>
+
+        <div class="field">
+          <label for="clientPhone">Mobile Number</label>
+          <input id="clientPhone" type="tel" placeholder="+91 XXXXX XXXXX" autocomplete="tel" />
+        </div>
+
+        <button class="btn btn-primary" type="button" onclick="goToStep2()">Continue</button>
+      </div>
+
+      <p class="footer">Deepak Mobile · Customer connect QR page</p>
+    </section>
+
+    <section id="screen2" class="screen hidden">
+      <div class="card">
+        <h2 class="card-title">Review & Follow</h2>
+        <p class="card-sub">Please support Deepak Mobile with a Google review and follow us on Instagram.</p>
+
+        <a class="btn btn-google" id="googleReviewLink" href="https://www.google.com/search?q=Deepak+Mobile+review" target="_blank" rel="noopener" onclick="setTimeout(markGoogle, 1200)">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Give Google Review
+        </a>
+
+        <a class="btn btn-insta" href="https://www.instagram.com/" target="_blank" rel="noopener" onclick="setTimeout(markInstagram, 1200)">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+          Follow us on Instagram
+        </a>
+
+        <div class="check-row" id="googleCheck" onclick="markGoogle()">
+          <span class="check-icon">✓</span>
+          <span>I gave Google review</span>
+        </div>
+
+        <div class="check-row" id="instagramCheck" onclick="markInstagram()">
+          <span class="check-icon">✓</span>
+          <span>I followed Deepak Mobile on Instagram</span>
+        </div>
+
+        <button class="btn btn-primary" id="step2Button" type="button" disabled onclick="goToStep3()">Continue to Community</button>
+      </div>
+    </section>
+
+    <section id="screen3" class="screen hidden">
+      <div class="card">
+        <h2 class="card-title">Join Our Customer Community</h2>
+        <p class="card-sub">Get updates for new phones, accessories, repair support, offers and service reminders.</p>
+
+        <div class="guest-badge">
+          Name: <strong id="displayName"></strong><br />
+          Mobile: <strong id="displayPhone"></strong>
+        </div>
+
+        <div class="community-box">
+          <div class="community-label">Deepak Mobile Community</div>
+          <div class="community-title">Stay Connected</div>
+          <p class="community-copy">Join our WhatsApp customer community for mobile deals and service updates.</p>
+        </div>
+
+        <a class="btn btn-whatsapp" id="communityLink" target="_blank" rel="noopener">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.134.558 4.133 1.532 5.875L.057 23.428a.5.5 0 0 0 .612.612l5.553-1.475A11.943 11.943 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0Zm0 21.89a9.876 9.876 0 0 1-5.044-1.384l-.361-.214-3.737.992.992-3.737-.214-.361A9.876 9.876 0 0 1 2.11 12C2.11 6.54 6.54 2.11 12 2.11c5.46 0 9.89 4.43 9.89 9.89 0 5.46-4.43 9.89-9.89 9.89Z"/></svg>
+          Join WhatsApp Community
+        </a>
+
+        <div class="services">
+          <div class="service">Smartphone Sales</div>
+          <div class="service">Mobile Repair</div>
+          <div class="service">Accessories</div>
+          <div class="service">Tempered Glass</div>
+        </div>
+      </div>
+
+      <p class="footer">Deepak Mobile<br />Phone, address, Instagram and review links can be updated anytime.</p>
+    </section>
+  </main>
+
+  <script>
+    const DEEPAK_MOBILE_WHATSAPP = "";
+    let googleDone = false;
+    let instagramDone = false;
+
+    function showScreen(number) {
+      document.querySelectorAll(".screen").forEach((screen) => screen.classList.add("hidden"));
+      document.getElementById(`screen${number}`).classList.remove("hidden");
+
+      for (let index = 1; index <= 3; index += 1) {
+        const dot = document.getElementById(`dot${index}`);
+        dot.classList.toggle("active", index === number);
+        dot.classList.toggle("done", index < number);
+      }
+    }
+
+    function goToStep2() {
+      const name = document.getElementById("clientName").value.trim();
+      const phone = document.getElementById("clientPhone").value.trim();
+
+      if (!name || !phone) {
+        alert("Please enter your name and mobile number.");
+        return;
+      }
+
+      showScreen(2);
+    }
+
+    function markGoogle() {
+      googleDone = true;
+      document.getElementById("googleCheck").classList.add("checked");
+      updateStep2Button();
+    }
+
+    function markInstagram() {
+      instagramDone = true;
+      document.getElementById("instagramCheck").classList.add("checked");
+      updateStep2Button();
+    }
+
+    function updateStep2Button() {
+      document.getElementById("step2Button").disabled = !(googleDone && instagramDone);
+    }
+
+    function goToStep3() {
+      const name = document.getElementById("clientName").value.trim();
+      const phone = document.getElementById("clientPhone").value.trim();
+
+      document.getElementById("displayName").textContent = name;
+      document.getElementById("displayPhone").textContent = phone;
+      document.getElementById("communityLink").href = buildCommunityLink(name, phone);
+      showScreen(3);
+    }
+
+    function buildCommunityLink(name, phone) {
+      if (DEEPAK_MOBILE_WHATSAPP) {
+        return DEEPAK_MOBILE_WHATSAPP;
+      }
+
+      const message = [
+        "Hello Deepak Mobile, I want to join your customer community.",
+        "",
+        `Name: ${name}`,
+        `Mobile: ${phone}`
+      ].join("\n");
+
+      return `https://wa.me/?text=${encodeURIComponent(message)}`;
+    }
+  </script>
+</body>
+</html>
