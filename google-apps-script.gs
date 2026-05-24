@@ -3,13 +3,15 @@ const SHEET_NAME = 'Deepak Mobile Leads';
 function doGet(e) {
   const sheet = getOrCreateSheet();
   const params = e && e.parameter ? e.parameter : {};
+  const phone = params.phone || params.mobile || params.mobileNumber || params.clientPhone || '';
 
   sheet.appendRow([
     new Date(),
     params.brand || 'Deepak Mobile',
     params.name || '',
-    params.phone || '',
-    params.source || 'QR'
+    phone,
+    params.source || 'QR',
+    e && e.queryString ? e.queryString : ''
   ]);
 
   return ContentService
@@ -26,8 +28,8 @@ function getOrCreateSheet() {
   }
 
   if (sheet.getLastRow() === 0) {
-    sheet.appendRow(['Timestamp', 'Brand', 'Name', 'Phone', 'Source']);
-    sheet.getRange('A1:E1').setFontWeight('bold');
+    sheet.appendRow(['Timestamp', 'Brand', 'Name', 'Phone', 'Source', 'Raw Query']);
+    sheet.getRange('A1:F1').setFontWeight('bold');
     sheet.setFrozenRows(1);
   }
 
