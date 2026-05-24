@@ -555,6 +555,7 @@
   </main>
 
   <script>
+    const SCRIPT_URL = "";
     const DEEPAK_MOBILE_PHONE = "918875086321";
     let googleDone = false;
     let instagramDone = false;
@@ -579,7 +580,24 @@
         return;
       }
 
+      saveLead(name, phone);
       showScreen(2);
+    }
+
+    function saveLead(name, phone) {
+      if (!SCRIPT_URL) return;
+
+      const params = new URLSearchParams({
+        brand: "Deepak Mobile",
+        name,
+        phone,
+        source: "QR"
+      });
+
+      fetch(`${SCRIPT_URL}?${params.toString()}`, {
+        method: "GET",
+        mode: "no-cors"
+      }).catch(() => {});
     }
 
     function markGoogle() {
